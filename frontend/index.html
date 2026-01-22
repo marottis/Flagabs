@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+<title>Flagzim — Master Every Flag</title>
+<meta name="description" content="Flagzim — Master every flag. Prove your world knowledge." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="brand" onclick="goHome()" role="button" tabindex="0" aria-label="Go home">
+    ✦ Flagzim
+  </div>
+
+  <nav class="nav">
+    <a class="nav-link" href="#" onclick="showSection('home'); return false;">Home</a>
+    <a class="nav-link" href="#" onclick="openNameGate('classic'); return false;">Play</a>
+    <a class="nav-link" href="#" onclick="openNameGate('daily'); return false;">Daily</a>
+    <a class="nav-link" href="#" onclick="showSection('scores'); return false;">Ranking</a>
+  </nav>
+</header>
+
+<main class="main">
+
+  <!-- HOME -->
+  <section id="section-home" class="section home">
+    <div class="hero">
+
+      <div class="hero-badge">WORLD FLAGS CHALLENGE</div>
+
+      <h1 class="hero-title">Flagzim</h1>
+      <p class="hero-slogan">Master every flag. Prove your world knowledge.</p>
+
+      <div class="flag-row" aria-label="sample flags">
+        <div class="flag-tile flag-wave wave-1"><img src="https://flagcdn.com/w320/br.png" alt="Brazil"></div>
+        <div class="flag-tile flag-wave wave-2"><img src="https://flagcdn.com/w320/es.png" alt="Spain"></div>
+        <div class="flag-tile flag-wave wave-3"><img src="https://flagcdn.com/w320/us.png" alt="United States"></div>
+        <div class="flag-tile flag-wave wave-4"><img src="https://flagcdn.com/w320/jp.png" alt="Japan"></div>
+        <div class="flag-tile flag-wave wave-5"><img src="https://flagcdn.com/w320/ua.png" alt="Ukraine"></div>
+      </div>
+
+      <div class="cta">
+        <button class="btn btn-primary" onclick="openNameGate('classic')">▶ PLAY NOW</button>
+        <button class="btn btn-daily" onclick="openNameGate('daily')">
+            ☀ DAILY CHALLENGE</button>
+        <button class="btn btn-secondary" onclick="showSection('scores')">🏆 RANKING</button>
+      </div>
+
+      <p class="hero-footnote">
+        Tip: Higher score wins. Faster time breaks ties.
+      </p>
+    </div>
+  </section>
+
+  <!-- PLAY -->
+  <section id="section-play" class="section play hidden">
+    <div class="game-box">
+      <div class="game-top">
+        <div class="stat">
+          Player: <b id="player-label">—</b> ·
+          Mode: <b id="mode-label">Classic</b>
+        </div>
+        <div class="stat">Score: <b id="score">0</b> | Flags: <b id="progress">0/0</b></div>
+      </div>
+
+      <div class="timer" aria-label="timer">
+        <div id="timer-bar" class="timer-bar"></div>
+      </div>
+
+      <div class="flag-stage">
+        <img id="flag" alt="flag">
+      </div>
+
+      <div id="options" class="options"></div>
+    </div>
+
+    <!-- GAME OVER -->
+    <div id="gameover" class="overlay hidden" role="dialog" aria-modal="true">
+      <div class="modal">
+        <h2 class="modal-title" id="gameover-title">Game Over</h2>
+        <p id="final-stats" class="modal-stats"></p>
+
+        <div id="save-result" class="modal-success"></div>
+        <div id="save-error" class="modal-error"></div>
+
+        <div class="modal-actions">
+          <button class="btn btn-primary" onclick="playAgain()">Play Again</button>
+          <button class="btn btn-secondary" onclick="showSection('scores')">Ranking</button>
+          <button class="btn btn-ghost" onclick="goHome()">Home</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCORES -->
+  <section id="section-scores" class="section scores hidden">
+    <div class="scores-box">
+      <h2 class="scores-title">🏆 Ranking</h2>
+      <div class="scores-subtitle" id="ranking-subtitle">Top 10</div>
+
+      <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin: 10px 0 14px;">
+        <button class="btn btn-secondary" onclick="setRankingMode('classic')">Classic</button>
+        <button class="btn btn-secondary" onclick="setRankingMode('daily')">Daily (Today)</button>
+      </div>
+
+      <div id="ranking" class="ranking">Loading...</div>
+
+      <div class="scores-actions">
+        <button class="btn btn-primary" onclick="openNameGate('classic')">Play</button>
+        <button class="btn btn-secondary" onclick="openNameGate('daily')">Daily</button>
+        <button class="btn btn-ghost" onclick="goHome()">Home</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- NAME GATE -->
+<div id="namegate" class="overlay hidden" role="dialog" aria-modal="true">
+  <div class="modal">
+    <h2 class="modal-title">Enter your name</h2>
+    <p class="modal-stats">Your name is required to start and save your score automatically.</p>
+
+    <input id="player-name" class="name-input" placeholder="Your name" maxlength="16" autocomplete="off">
+    <div id="name-error" class="modal-error"></div>
+
+    <div class="modal-actions">
+      <button class="btn btn-primary" onclick="confirmNameAndStart()">Start</button>
+      <button class="btn btn-ghost" onclick="closeNameGate()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

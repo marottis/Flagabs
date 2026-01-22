@@ -1,0 +1,20 @@
+services:
+  backend:
+    build: ./backend
+    container_name: flagzim-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+
+  frontend:
+    image: nginx:alpine
+    container_name: flagzim-frontend
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+    restart: unless-stopped
